@@ -1,10 +1,10 @@
 import { Event } from "../../models/Event";
 import React, { useState, useEffect, CSSProperties } from "react";
-import {Link, Route, Routes} from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import EventDetailsForm from "./eventDetailsForm.tsx";
 import AddEventForm from "./addEventForm.tsx";
 import { FaSearch } from "react-icons/fa";
-import {VscAccount} from "react-icons/vsc";
+import { VscAccount } from "react-icons/vsc";
 
 const EventList = () => {
     const [events, setEvents] = useState<Event[]>([]);
@@ -27,7 +27,7 @@ const EventList = () => {
 
 
     useEffect(() => {
-    const fetchData = async () => {
+        const fetchData = async () => {
             try {
                 const response2 = await fetch(
                     `http://127.0.0.1:8000/events/?${filters}&format=json`
@@ -137,24 +137,26 @@ const EventList = () => {
                     />
                 </form>
                 <button style={styles.searchIconButton} onClick={() => {
-                      setShowFilterModalName(true);
-                    }}>
+                    setShowFilterModalName(true);
+                }}>
                     <FaSearch />
                 </button>
             </div>
 
             <div style={styles.userIconWrapper}>
-              <button style={styles.userIconButton} onClick={() => setShowUserMenu((prev) => !prev)}>
-                <VscAccount />
-              </button>
-              {showUserMenu && (
-                <div style={styles.userMenu}>
-                  <button style={styles.userMenuItem}>Profile</button>
-                  <Link to="/logout">
-                   <button style={styles.userMenuItem}>Logout</button>
-                </Link>
-                </div>
-              )}
+                <button style={styles.userIconButton} onClick={() => setShowUserMenu((prev) => !prev)}>
+                    <VscAccount />
+                </button>
+                {showUserMenu && (
+                    <div style={styles.userMenu}>
+                        <Link to="/userDetail">
+                            <button style={styles.userMenuItem}>Profile</button>
+                        </Link>
+                        <Link to="/logout">
+                            <button style={styles.userMenuItem}>Logout</button>
+                        </Link>
+                    </div>
+                )}
             </div>
 
             {/* Add a Link to the new form component */}
@@ -163,94 +165,94 @@ const EventList = () => {
             </Link>
 
             {isAnyFilterModalOpen && (
-              <div style={styles.modalOverlay}>
-                <div style={styles.modalContent}>
-                  <h3>Filter Events</h3>
+                <div style={styles.modalOverlay}>
+                    <div style={styles.modalContent}>
+                        <h3>Filter Events</h3>
 
-                  <label>
-                    Name:
-                    <input
-                      type="text"
-                      value={filterName}
-                      onChange={(e) => setFilterName(e.target.value)}
-                    />
-                  </label>
-                  <label>
-                    Creator:
-                    <input
-                      type="text"
-                      value={filterCreator}
-                      onChange={(e) => setFilterCreator(e.target.value)}
-                    />
-                  </label>
-                  <label>
-                    Starting Date:
-                    <input
-                      type="date"
-                      value={filterStartingDate}
-                      onChange={(e) => setFilterStartingDate(e.target.value)}
-                    />
-                  </label>
-                  <label>
-                    Ending Date:
-                    <input
-                      type="date"
-                      value={filterEndingDate}
-                      onChange={(e) => setFilterEndingDate(e.target.value)}
-                    />
-                  </label>
-                  <label>
-                    Capacity:
-                    <input
-                      type="number"
-                      value={filterCapacity}
-                      onChange={(e) => setFilterCapacity(e.target.value)}
-                    />
-                  </label>
-                  <label>
-                    Location:
-                    <input
-                      type="text"
-                      value={filterLocation}
-                      onChange={(e) => setFilterLocation(e.target.value)}
-                    />
-                  </label>
+                        <label>
+                            Name:
+                            <input
+                                type="text"
+                                value={filterName}
+                                onChange={(e) => setFilterName(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            Creator:
+                            <input
+                                type="text"
+                                value={filterCreator}
+                                onChange={(e) => setFilterCreator(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            Starting Date:
+                            <input
+                                type="date"
+                                value={filterStartingDate}
+                                onChange={(e) => setFilterStartingDate(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            Ending Date:
+                            <input
+                                type="date"
+                                value={filterEndingDate}
+                                onChange={(e) => setFilterEndingDate(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            Capacity:
+                            <input
+                                type="number"
+                                value={filterCapacity}
+                                onChange={(e) => setFilterCapacity(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            Location:
+                            <input
+                                type="text"
+                                value={filterLocation}
+                                onChange={(e) => setFilterLocation(e.target.value)}
+                            />
+                        </label>
 
-                  <div style={{ marginTop: '10px' }}>
-                    <button
-                      style={styles.inputButton}
-                      onClick={() => {
-                        handleFilterSubmit();
-                        setShowFilterModalName(false);
-                      }}
-                    >
-                      Apply Filters
-                    </button>
-                    <button
-                      style={{ ...styles.inputButton, marginLeft: '10px' }}
-                      onClick={() => setShowFilterModalName(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                        <div style={{ marginTop: '10px' }}>
+                            <button
+                                style={styles.inputButton}
+                                onClick={() => {
+                                    handleFilterSubmit();
+                                    setShowFilterModalName(false);
+                                }}
+                            >
+                                Apply Filters
+                            </button>
+                            <button
+                                style={{ ...styles.inputButton, marginLeft: '10px' }}
+                                onClick={() => setShowFilterModalName(false)}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             )}
 
             <p></p>
-                {isAnyFilterModalOpen && (
-                    <button style={styles.inputButton} onClick={handleFilterSubmit}>
-                        Submit Filters
-                    </button>
-                )}
-                {isAnyFilterModalOpen && (
-                    <button
-                        style={styles.inputButton}
-                        onClick={handleDeleteFilters}
-                    >
-                        Delete Filters
-                    </button>
-                )}
+            {isAnyFilterModalOpen && (
+                <button style={styles.inputButton} onClick={handleFilterSubmit}>
+                    Submit Filters
+                </button>
+            )}
+            {isAnyFilterModalOpen && (
+                <button
+                    style={styles.inputButton}
+                    onClick={handleDeleteFilters}
+                >
+                    Delete Filters
+                </button>
+            )}
 
 
             <div style={styles.eventsContainer}>
@@ -317,12 +319,12 @@ const styles: { [key: string]: CSSProperties } = {
     },
 
     searchContainer: {
-          position: "fixed",
-          top: "10px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "300px",
-          zIndex: 100,
+        position: "fixed",
+        top: "10px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "300px",
+        zIndex: 100,
     },
 
     searchInput: {
@@ -396,61 +398,61 @@ const styles: { [key: string]: CSSProperties } = {
         marginTop: "20px",
     },
     modalOverlay: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100vw",
-      height: "100vh",
-      backgroundColor: "rgba(0,0,0,0.5)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 1000,
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000,
     },
     modalContent: {
-      backgroundColor: "black",
-      padding: "20px",
-      borderRadius: "10px",
-      width: "400px",
-      display: "flex",
-      flexDirection: "column",
-      gap: "10px",
+        backgroundColor: "black",
+        padding: "20px",
+        borderRadius: "10px",
+        width: "400px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
     },
     userIconWrapper: {
-      position: "absolute",
+        position: "absolute",
         border: "none",
-      top: "20px",
-      right: "20px",
+        top: "20px",
+        right: "20px",
     },
 
     userIconButton: {
-      background: "transparent",
-      border: "none",
-      fontSize: "24px",
-      cursor: "pointer",
+        background: "transparent",
+        border: "none",
+        fontSize: "24px",
+        cursor: "pointer",
     },
 
     userMenu: {
-      position: "absolute",
-      top: "40px",
-      right: "0",
-      backgroundColor: "#fff",
-      boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-      borderRadius: "8px",
-      padding: "10px",
-      display: "flex",
-      flexDirection: "column",
-      zIndex: 1000,
+        position: "absolute",
+        top: "40px",
+        right: "0",
+        backgroundColor: "#fff",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+        borderRadius: "8px",
+        padding: "10px",
+        display: "flex",
+        flexDirection: "column",
+        zIndex: 1000,
     },
 
     userMenuItem: {
-      background: "none",
-      border: "none",
-      padding: "8px 12px",
-      textAlign: "left",
-      cursor: "pointer",
-      fontSize: "14px",
-      color: "#333",
+        background: "none",
+        border: "none",
+        padding: "8px 12px",
+        textAlign: "left",
+        cursor: "pointer",
+        fontSize: "14px",
+        color: "#333",
     },
 };
 
