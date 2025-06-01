@@ -63,6 +63,7 @@ const UserProfile: React.FC = () => {
         <strong>Preferences:</strong> {userData.preferences.length > 0 ? userData.preferences.join(", ") : "No preferences listed"}
       </div>
 
+// UserProfile.tsx snippet for the button
       <button
         onClick={handleUpdateProfile}
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
