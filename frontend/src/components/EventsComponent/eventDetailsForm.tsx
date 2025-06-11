@@ -2,14 +2,14 @@ import { useState, useEffect, CSSProperties } from "react";
 import { Preference } from "../../models/Preference";
 
 import { getUserID } from "../../util/auth";
-import {prototypejs} from "globals";
-import {Skill} from "../../models/Skill.ts";
+import { prototypejs } from "globals";
+import { Skill } from "../../models/Skill.ts";
 import Popup from "./PopUp.tsx";
 import DeleteEvent from "./deleteEvent.tsx";
 import UpdateEventForm from "./updateEventForm.tsx";
 
 
-const EventDetailsForm = (props: { eventDetail: any }) => {
+const EventDetailsForm = (props: { eventDetail: any; onClose: () => void }) => {
     const [preferences, setPreferences] = useState<Preference[]>([]);
     const [skills, setSkills] = useState<Skill[]>([]);
     const [desiredCommand, setDesiredCommand] = useState(-1);
@@ -49,7 +49,7 @@ const EventDetailsForm = (props: { eventDetail: any }) => {
     const currentPreferencesSet = new Set();
     const currentSkillsSet = new Set();
     props.eventDetail.preferences.forEach((item: number) => {
-    // Ensure 'preferences' array is defined and item is a valid index
+        // Ensure 'preferences' array is defined and item is a valid index
         if (preferences && preferences[item - 1] && preferences[item - 1].name) {
             currentPreferencesSet.add(preferences[item - 1].name);
         } else {
@@ -132,9 +132,11 @@ const EventDetailsForm = (props: { eventDetail: any }) => {
 
     const handleExitDetail = () => {
         const isUserEventPage = window.location.href.includes("/userEvents");
-
+        const isUserDetailPage = window.location.href.includes("/userDetail");
         if (isUserEventPage) {
             window.location.href = `/userEvents/`;
+        } else if (isUserDetailPage) {
+            window.location.href = `/userDetail/`;
         } else {
             window.location.href = `/showlist/`;
         }

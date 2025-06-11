@@ -89,12 +89,13 @@ function App() {
           }
         />
         <Route path="/userDetail" element={<UserProfile></UserProfile>} />
-        <Route path="/update-profile" element={<UserUpdate />} />
+        <Route path="/userUpdate" element={<UserUpdate />} />
         <Route
           path="/showlist/*"
           element={<ShowAllEvents></ShowAllEvents>}
         />
         <Route path="/logout" element={<Logout></Logout>} />
+
 
         {/*<Route*/}
 
