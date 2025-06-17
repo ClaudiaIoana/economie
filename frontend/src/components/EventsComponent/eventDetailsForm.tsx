@@ -9,6 +9,7 @@ import DeleteEvent from "./deleteEvent.tsx";
 import UpdateEventForm from "./updateEventForm.tsx";
 import { useLocation } from "react-router-dom";
 import ParticipantRatingPopup from "./ParticipantRating.tsx";
+import { getGlobalFlag, setGlobalFlag, toggleGlobalFlag } from '../EventsComponent/globalFlag';
 
 
 const EventDetailsForm = () => {
@@ -165,7 +166,7 @@ const EventDetailsForm = () => {
             location: event.location,
             preferences: event.preferences,
             skills: event.skills,
-            rating: event.rating,
+
         });
     }, [event, creatorData]); // ← include creatorData as a dependency
 
@@ -209,7 +210,7 @@ const EventDetailsForm = () => {
         location: "",
         preferences: "",
         skills: "",
-        rating: ""
+
     });
 
     const [userRating, setUserRating] = useState<number>(0);
@@ -245,6 +246,7 @@ const EventDetailsForm = () => {
     const [skillNames, setSkillNames] = useState<string[]>([]);
 
     const handleExitDetail = () => {
+        toggleGlobalFlag();
         const isUserEventPage = window.location.href.includes("/userEvents");
         const isUserDetailPage = window.location.href.includes("/userDetail");
         if (isUserEventPage) {
@@ -403,7 +405,7 @@ const EventDetailsForm = () => {
                                     )}
                                 </>
                             ) : (
-                                <>
+                                <>{getGlobalFlag() == false &&
                                     <button
                                         style={styles.inputButton}
                                         onClick={async () => {
@@ -423,9 +425,9 @@ const EventDetailsForm = () => {
                                         }}
                                     >
                                         Join Event
-                                    </button>
+                                    </button>}
 
-                                    <div style={{ marginBottom: "20px" }}>
+                                    {getGlobalFlag() == true && <div style={{ marginBottom: "20px" }}>
                                         <label style={{ marginRight: 10 }}>Rate this event:</label>
                                         {[1, 2, 3, 4, 5].map((star) => (
                                             <span
@@ -451,7 +453,7 @@ const EventDetailsForm = () => {
                                         >
                                             Submit Rating
                                         </button>
-                                    </div>
+                                    </div>}
                                 </>
                             )}
 
